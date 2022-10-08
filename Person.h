@@ -54,22 +54,13 @@ struct Person {
 	}
 
 
-	is_alive end_day () {
-		energy -= DAY_COST;
-		if (energy <= 0) {
-			return is_alive::dead;
-		}
-
-		return is_alive::alive;
-	}
-
 
 	int want_to_hunt() {
 		return rand()/(float)RAND_MAX < prob_hunt;
 	}
 
 	int want_child() {
-        return rand()/(float)RAND_MAX < prob_child;
+        return rand() / (float) RAND_MAX < prob_child;
 	}
 
 	std::vector<double> give_child_gens() {

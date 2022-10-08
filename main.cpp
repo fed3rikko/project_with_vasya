@@ -8,7 +8,7 @@
 #include <iostream>
 
 int64_t hashik = 0;
-int STURKT_LEN = 0;
+//int STURKT_LEN = 0;
 
 void add_new_element(std::map<int64_t, Person> &mp) {// нужна для создания начального состояния - далее для рождения ее использовать не следует
 	//for (auto& [x, y] : mp) {
@@ -24,6 +24,8 @@ void add_new_element(std::map<int64_t, Person> &mp) {// нужна для соз
 }
 
 void person_birth_new_person (Person& parent, std::map<int64_t, Person> &mp) { // функция для рождения детей
+    parent.energy -= CHILD_COST;
+
 	auto vars = parent.give_child_gens();
 	Person addic(ENERGY_GIVE_TO_CHILD, vars[0], vars[1], vars[2]);// ENERGY_GIVE_TO_CHILD - стартовое значение енергии
 
@@ -45,6 +47,16 @@ int what_reward_get_after_hunt (int N) {
 	}
 
 	return 0;
+}
+
+
+is_alive end_day (Person& pers) {
+    pers.energy -= DAY_COST;
+    if (pers.energy <= 0) {
+        return is_alive::dead;
+    }
+
+    return is_alive::alive;
 }
 
 
@@ -77,14 +89,15 @@ void live_one_fakking_day (std::map<int64_t, Person> &mp) {
 			y.energy += what_reward_get_after_hunt(len);
 		}
 
-		if (y.want_child()) {
-			//person_birth_new_person(y, mp);
-			qu_birth.push_back(y);
-		}
-
-		if (y.end_day() == is_alive::dead) {
+		if (end_day(y) == is_alive::dead) {
 			//delete_element(x, mp);
 			qu_del.push_back(x);
+            continue;
+		}
+
+        if (y.want_child()) {
+			//person_birth_new_person(y, mp);
+			qu_birth.push_back(y);
 		}
 
 	}
@@ -99,6 +112,7 @@ void live_one_fakking_day (std::map<int64_t, Person> &mp) {
 	}
 
 }
+
 
 int main() {
 	//setprecision(12);
