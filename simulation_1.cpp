@@ -4,17 +4,19 @@ using namespace std;
 
 const int M = 1e9 + 7;
 const int MAXN = 1e3 + 5;
+
+
 const int DAY_COST = 3;
-
-
-const int CHILD_COST = 10;
-
+const int CHILD_COST = 11;
+const int ENERGY_GIVE_TO_CHILD = 5;
+const int ENERGY_GIVE_FOR_BIRTH = 1;
 const int HUNT_REWARD = 5;
 
 
 //double ans = 0;
 //const int lower_bound_to_get_child = 10;
 int64_t hashik = 0;
+int STURKT_LEN = 0;
 
 
 
@@ -92,8 +94,11 @@ public:
 
 	int want_child() {
 		if (energy >= CHILD_COST) {
+			energy -= (ENERGY_GIVE_TO_CHILD + ENERGY_GIVE_FOR_BIRTH);
 			return rand()/(float)RAND_MAX < prob_child;
 		}
+
+		return 0;
 	}
 
 	std::vector<double> give_child_gens() {
@@ -118,11 +123,6 @@ public:
 //////////////////////////////////
 
 /*
-void end_day() {
-		el_energy -= DAY_COST;
-	}
-
-
 int choose_who() {
 	int64_t nb =  rand() % love_sum;
 
@@ -168,7 +168,7 @@ void add_new_element(map<int64_t, Person> &mp) {// нужна для созда�
 	//	y.new_element_added(hashik, 1);
 	//}
 
-	Person addic(5, 0.5, 0.5, 0.5);
+	Person addic(5, 0.9, 0.5, 0.5);
 
 	mp[hashik] = addic;
 
@@ -178,7 +178,7 @@ void add_new_element(map<int64_t, Person> &mp) {// нужна для созда�
 
 void person_birth_new_person (Person& parent, map<int64_t, Person> &mp) { // функция для рождения детей
 	auto vars = parent.give_child_gens();
-	Person addic(5, vars[0], vars[1], vars[2]);// 5 - стартовое значение енергии
+	Person addic(ENERGY_GIVE_TO_CHILD, vars[0], vars[1], vars[2]);// ENERGY_GIVE_TO_CHILD - стартовое значение енергии
 
 	mp[hashik] = addic;
 	hashik++;
@@ -188,11 +188,21 @@ void person_birth_new_person (Person& parent, map<int64_t, Person> &mp) { // ф�
 
 
 
-void delete_element (int pos, std::map<int64_t, Person> &mp) { // для удаления чела из структуры при его смерти
+void delete_element (int64_t pos, std::map<int64_t, Person> &mp) { // для удаления чела из структуры при его смерти
 
 	mp.erase(pos);
 }
 
+
+int what_reward_get_after_hunt (int N) {
+	//std::cout << 0.000000005 / N <<"kek\n";
+	if (rand()/(float)RAND_MAX < (1000. / N) ) {
+		//std::cout << "rwaft\n";
+		return HUNT_REWARD;
+	}
+
+	return 0;
+}
 
 
 
@@ -217,9 +227,11 @@ void live_one_fakking_day (std::map<int64_t, Person> &mp) {
 	vector<int> qu_del;
 	vector<Person> qu_birth;
 
-	for (auto &[x, y] : mp) {
+	int len = mp.size();
+
+	for (auto& [x, y] : mp) {
 		if (y.want_to_hunt() ) {
-			y.energy += HUNT_REWARD;
+			y.energy += what_reward_get_after_hunt(len);
 		}
 		
 		if (y.want_child()) {
@@ -252,15 +264,16 @@ int main() {
 	//double t = 1;
 	//cout << 1;
 
-	map<int64_t, Person> elements_now = build(100);//100 - количество micro-челов
+	map<int64_t, Person> elements_now = build(10000);//10000 - количество micro-челов
 
 
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < 1000; i++) {
 		live_one_fakking_day(elements_now);
+		cout << elements_now.size() << '\n';
 	}
 
-	cout << elements_now.size();
+	//cout << elements_now.size();
 
 	return 0;
 }
