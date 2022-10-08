@@ -1,0 +1,3 @@
+/home/fedor/Documents/project_with_vasya/cmake-build-debug/CMakeFiles/project_with_vasya.dir
+/home/fedor/Documents/project_with_vasya/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/fedor/Documents/project_with_vasya/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -12,7 +12,7 @@ enum class is_alive{
 
 struct Person {
 	int energy;
-
+	
     double prob_hunt;
 	double prob_child;
 	double prob_help;
@@ -52,7 +52,7 @@ struct Person {
 
 		return *this;
 	}
-
+	
 
 	is_alive end_day () {
 		energy -= DAY_COST;
@@ -78,7 +78,7 @@ struct Person {
 		double pr_ht = rand()/(2. * RAND_MAX - 1) * mutability + this->prob_hunt;
 		double pr_ch = rand()/(2. * RAND_MAX - 1) * mutability + this->prob_child;
 		double pr_hp = rand()/(2. * RAND_MAX - 1) * mutability + this->prob_help;
-
+		
 		return {pr_ht, pr_ch, pr_hp};
 	}
 
