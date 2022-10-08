@@ -1,19 +1,6 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-#define forn(i, n) for(int i = 0; i < int(n); i++) 
-#define f first	
-#define s second
-#define ll long long
-#define db double
-#define pb push_back
-typedef pair<int, int> pii;
-
-void inppp(){
-    freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
-}
-
 
 const int M = 1e9 + 7;
 const int MAXN = 1e3 + 5;
@@ -32,52 +19,6 @@ int64_t hashik = 0;
 
 
 
-/*
-class Fraction {
-public:
-    Fraction(int numerator, int denominator)
-        : numerator_(numerator)
-        , denominator_(denominator) {
-            int gcd= std::gcd(numerator_, denominator_);
-            numerator_ /= gcd;
-            denominator_ /= gcd;
-    }
-
-    Fraction(int numerator)
-        : Fraction(numerator, 1) {
-
-    }
-
-    //Fraction(std::initializer_list<>) {
-
-    //};
-
-    int Numerator () const {
-        return numerator_;
-    }
-
-    int Denominator() {
-        return denominator_;
-    }
-
-    Fraction operator* (const Fraction& rhs) {
-        return Fraction(numerator_ * rhs.numerator_, denominator_ * rhs.denominator_);
-    }
-
-    operator() (int x, int y) {
-
-    }
-private:
-    int numerator_;
-    int denominator_;
-};
-
-int aa_main() {
-    //Fraction f;
-}
-*/
-
-
 enum class is_alive{
 	dead,
 	alive
@@ -85,16 +26,14 @@ enum class is_alive{
 
 
 
-
 class Person {
 //private:
 public:
-	double prob_hunt;
+	int energy;
+	
+    double prob_hunt;
 	double prob_child;
 	double prob_help;
-
-	int energy;
-
 
 public:
 	Person() :
@@ -114,9 +53,13 @@ public:
 
 	{}
 
-	//Person(const Person& other)
-    ///    : Person(other)
-     //   {}
+	Person(const Person& other) {
+		prob_hunt = other.prob_hunt;
+		prob_child = other.prob_child;
+		prob_help = other.prob_help;
+
+		energy = other.energy;
+    }
 
 
 
@@ -127,7 +70,6 @@ public:
 		prob_help = other.prob_help;
 
 		energy = other.energy;
-
 
 		return *this;
 	}
@@ -267,7 +209,6 @@ map<int64_t, Person> build(int N) {//N - количество челов
 	}
 
 	return mapchik;
-
 }
 
 
@@ -307,12 +248,9 @@ void live_one_fakking_day (std::map<int64_t, Person> &mp) {
 
 
 int main() {
-	inppp();
 	//setprecision(12);
 	//double t = 1;
 	//cout << 1;
-
-	int64_t counter = 0;
 
 	map<int64_t, Person> elements_now = build(100);//100 - количество micro-челов
 
