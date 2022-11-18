@@ -1,0 +1,3 @@
+/home/vasa/_work/prog/project_with_vasya/CMakeFiles/project_with_vasya.dir
+/home/vasa/_work/prog/project_with_vasya/CMakeFiles/edit_cache.dir
+/home/vasa/_work/prog/project_with_vasya/CMakeFiles/rebuild_cache.dir

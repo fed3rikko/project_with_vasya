@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/project_with_vasya.dir/main.cpp.o -o project_with_vasya 
